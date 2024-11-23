@@ -4,7 +4,7 @@ import { useState, useSyncExternalStore } from "react";
 function App() {
     let [title, changeTitle] = useState(["남자 코트 추천", "코드2", "코드3"]);
     let [like, changeLike] = useState([0, 0, 0]);
-    let [modal, setModal] = useState(false);
+    let [modal, setModal] = useState([false, false, false]);
 
     return (
         <div className="App">
@@ -31,23 +31,27 @@ function App() {
                 정렬
             </button>
 
-            {title.map((t) => {
+            {title.map((t, idx) => {
                 return (
                     <div className="list">
                         <h4
                             onClick={() => {
-                                if (modal) {
-                                    setModal(false);
-                                } else {
-                                  setModal(true);
-                                }
+                                let copy = [...modal];
+                                copy[idx] = !copy[idx];
+                                setModal(copy);
                             }}
                         >
                             {t}{" "}
-                            <span onClick={() => changeLike(like++)}>
+                            <span
+                                onClick={() => {
+                                    let copy = [...like];
+                                    copy[idx]++;
+                                    changeLike(copy);
+                                }}
+                            >
                                 좋아요
                             </span>{" "}
-                            {like}
+                            {like[idx]}
                         </h4>
                         <p>2월 17일 발행</p>
                     </div>
