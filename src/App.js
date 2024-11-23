@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { useState } from "react";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    let post = "강남";
+    let [title, changeCloth] = useState(["남자 코트 추천", "코드2", "코드3"]);
+
+    return (
+        <div className="App">
+            <div className="black-nav">
+                <h4>블로그임</h4>
+            </div>
+            {title.map((t) => {
+                return (
+                    <div className="list">
+                        <h4>{t}</h4>
+                        <p>2월 17일 발행</p>
+                    </div>
+                );
+            })}
+        </div>
+    );
 }
 
 export default App;
