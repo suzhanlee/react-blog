@@ -11,6 +11,7 @@ function App() {
     let [modal, setModal] = useState([false, false, false]);
     let [titleOrder, setTitleOrder] = useState(0);
     let [inputValue, setInputValue] = useState("");
+    let [day, setDay] = useState(["2월 17일", "2월 17일", "2월 17일"]);
 
     return (
         <div className="App">
@@ -62,37 +63,44 @@ function App() {
                             {like[idx]}
                             <button
                                 onClick={(e) => {
-                                  e.stopPropagation();
-                                  let copy = [...title];
-                                  copy.splice(idx, 1);
-                                  changeTitle(copy);
+                                    e.stopPropagation();
+                                    let copy = [...title];
+                                    copy.splice(idx, 1);
+                                    changeTitle(copy);
                                 }}
                             >
                                 삭제
                             </button>
                         </h4>
-                        <p>2월 17일 발행</p>
+                        <p>{day[idx]}</p>
                     </div>
                 );
             })}
 
-            <form>
-                <input
-                    onChange={(e) => {
-                        setInputValue(e.target.value);
-                    }}
-                ></input>
+            <input
+                onChange={(e) => {
+                    setInputValue(e.target.value);
+                }}
+            ></input>
 
-                <button
-                    onClick={() => {
-                        let copy = [...title];
-                        copy.unshift(inputValue);
-                        changeTitle(copy);
-                    }}
-                >
-                    글작성버튼
-                </button>
-            </form>
+            <button
+                onClick={() => {
+                    if (inputValue !== "") {
+                        let titleCopy = [...title];
+                        titleCopy.unshift(inputValue);
+                        changeTitle(titleCopy);
+                        let likeCopy = [...like];
+                        likeCopy.unshift(0);
+                        changeLike(likeCopy);
+                        let dayCopy = [...day];
+                        let now = new Date();
+                        dayCopy.unshift(now.getMonth() + "월 " + now.getUTCDate() + "일");
+                        changeLike(dayCopy);
+                    }
+                }}
+            >
+                글작성버튼
+            </button>
 
             {modal[titleOrder] == true ? (
                 <Modal
