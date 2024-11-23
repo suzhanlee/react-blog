@@ -10,6 +10,7 @@ function App() {
     let [like, changeLike] = useState([0, 0, 0]);
     let [modal, setModal] = useState([false, false, false]);
     let [titleOrder, setTitleOrder] = useState(0);
+    let [inputValue, setInputValue] = useState("");
 
     return (
         <div className="App">
@@ -49,7 +50,8 @@ function App() {
                         >
                             {t}{" "}
                             <span
-                                onClick={() => {
+                                onClick={(e) => {
+                                    e.stopPropagation();
                                     let copy = [...like];
                                     copy[idx]++;
                                     changeLike(copy);
@@ -58,11 +60,39 @@ function App() {
                                 좋아요
                             </span>{" "}
                             {like[idx]}
+                            <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  let copy = [...title];
+                                  copy.splice(idx, 1);
+                                  changeTitle(copy);
+                                }}
+                            >
+                                삭제
+                            </button>
                         </h4>
                         <p>2월 17일 발행</p>
                     </div>
                 );
             })}
+
+            <form>
+                <input
+                    onChange={(e) => {
+                        setInputValue(e.target.value);
+                    }}
+                ></input>
+
+                <button
+                    onClick={() => {
+                        let copy = [...title];
+                        copy.unshift(inputValue);
+                        changeTitle(copy);
+                    }}
+                >
+                    글작성버튼
+                </button>
+            </form>
 
             {modal[titleOrder] == true ? (
                 <Modal
