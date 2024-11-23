@@ -95,7 +95,7 @@ function App() {
                         let dayCopy = [...day];
                         let now = new Date();
                         dayCopy.unshift(now.getMonth() + "월 " + now.getUTCDate() + "일");
-                        changeLike(dayCopy);
+                        setDay(dayCopy);
                     }
                 }}
             >
